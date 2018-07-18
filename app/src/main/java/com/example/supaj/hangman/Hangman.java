@@ -83,83 +83,84 @@ public class Hangman extends Fragment {
                 hangman.guess = 0;
                 hangman.setIsOne(false);
 
-
-                mainPrint.setText(hangman.mainPrinting(hangman.guesses, hangman.guessList, hangman.mainWord, hangman.charsGuessed));
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    if (editText.getText().toString().length() > 1) {
-                        Toast.makeText(getActivity(), "Error: The input needs to be more than one letter.", Toast.LENGTH_SHORT).show();
-                        hangman.setIsOne(false);
-                    }
-                    else {
-                        hangman.setGuessLetter(editText.getText().toString());
-                        hangman.setIsOne(true);
-                    }
-                }
-                boolean same = false;
-                if(hangman.getIsOne() == true){
-
-                    hangman.setGuess(hangman.guessLetter.charAt(0));
-                    for (int i = 0; i < hangman.guessList.size(); i++){
-                        if(hangman.getGuess() == hangman.guessList.get(i)){
-                            Toast.makeText(getActivity(), "You entered something the same as your gueeses noob", Toast.LENGTH_SHORT).show();
-                            same = true;
+                if (hangman.lose == false) {
+                    mainPrint.setText(hangman.mainPrinting(hangman.guesses, hangman.guessList, hangman.mainWord, hangman.charsGuessed));
+                    if (actionId == EditorInfo.IME_ACTION_SEND) {
+                        if (editText.getText().toString().length() > 1) {
+                            Toast.makeText(getActivity(), "Error: The input needs to be more than one letter.", Toast.LENGTH_SHORT).show();
+                            hangman.setIsOne(false);
+                        } else {
+                            hangman.setGuessLetter(editText.getText().toString());
+                            hangman.setIsOne(true);
                         }
                     }
-                    for (int i = 0; i < hangman.charsGuessed.size(); i++) {
-                        if(hangman.getGuess() == hangman.charsGuessed.get(i)) {
-                            Toast.makeText(getActivity(), "You entered something the same as your guesses noob", Toast.LENGTH_SHORT).show();
-                            same = true;
+                    boolean same = false;
+                    if (hangman.getIsOne() == true) {
 
+                        hangman.setGuess(hangman.guessLetter.charAt(0));
+                        for (int i = 0; i < hangman.guessList.size(); i++) {
+                            if (hangman.getGuess() == hangman.guessList.get(i)) {
+                                Toast.makeText(getActivity(), "You entered something the same as your gueeses noob", Toast.LENGTH_SHORT).show();
+                                same = true;
+                            }
                         }
-                    }
-                }
-                if(hangman.isOne == true && same == false){
-                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                    boolean correct = false;
-                    for (int i = 0; i < hangman.mainWord.length(); i++) {
-                        if(hangman.guess == hangman.mainWord.charAt(i)) {
-                            hangman.charsGuessed.add(hangman.guess);
-                            correct = true;
-                            break;
-                        }
-                    }
-                    //check that word was filled or not
-                    int numCorrect = 0;
-                    for (int i = 0; i < hangman.mainWord.length(); i++) {
-                        for (int j = 0; j < hangman.charsGuessed.size(); j++) {
-                            if(hangman.charsGuessed.get(j) == hangman.mainWord.charAt(i)) {
-                                numCorrect = numCorrect + 1;
+                        for (int i = 0; i < hangman.charsGuessed.size(); i++) {
+                            if (hangman.getGuess() == hangman.charsGuessed.get(i)) {
+                                Toast.makeText(getActivity(), "You entered something the same as your guesses noob", Toast.LENGTH_SHORT).show();
+                                same = true;
+
                             }
                         }
                     }
+                    if (hangman.isOne == true && same == false) {
+                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        boolean correct = false;
+                        for (int i = 0; i < hangman.mainWord.length(); i++) {
+                            if (hangman.guess == hangman.mainWord.charAt(i)) {
+                                hangman.charsGuessed.add(hangman.guess);
+                                correct = true;
+                                break;
+                            }
+                        }
+                        //check that word was filled or not
+                        int numCorrect = 0;
+                        for (int i = 0; i < hangman.mainWord.length(); i++) {
+                            for (int j = 0; j < hangman.charsGuessed.size(); j++) {
+                                if (hangman.charsGuessed.get(j) == hangman.mainWord.charAt(i)) {
+                                    numCorrect = numCorrect + 1;
+                                }
+                            }
+                        }
 
 
-                    TextView mainPrint2 = (TextView) getActivity().findViewById(R.id.end);
-                    // if true, win
-                    if(numCorrect == hangman.mainWord.length()) {
-                        mainPrint2.setText("\nThe word you made was: " + hangman.mainWord + "\nCongrats!!! You Win!!!");
+                        TextView mainPrint2 = (TextView) getActivity().findViewById(R.id.end);
+                        // if true, win
+                        if (numCorrect == hangman.mainWord.length()) {
+                            mainPrint2.setText("\nThe word you made was: " + hangman.mainWord + "\nCongrats!!! You Win!!!");
 
-                        Toast.makeText(getActivity(), "End of Program", Toast.LENGTH_SHORT).show();
-                        //break;
+                            Toast.makeText(getActivity(), "End of Program", Toast.LENGTH_SHORT).show();
+                            //break;
+                            hangman.lose = true;
+
+                        }
+
+                        // add to guesses, check to see if guesses if over amount
+                        if (correct == false) {
+                            hangman.guesses = hangman.guesses + 1;
+                            hangman.guessList.add(hangman.guess);
+                        }
+                        // if guesses > 5, break loop and say game over
+                        if (hangman.guesses > 4) {
+                            mainPrint2.setText("\nGAME OVER!! Try again!" + "The word was " + hangman.mainWord);
+
+                            Toast.makeText(getActivity(), "End of Program", Toast.LENGTH_SHORT).show();
+                            hangman.lose = true;
+                            //break;
+                        }
+                        mainPrint.setText(hangman.mainPrinting(hangman.guesses, hangman.guessList, hangman.mainWord, hangman.charsGuessed));
 
                     }
-
-                    // add to guesses, check to see if guesses if over amount
-                    if(correct == false) {
-                        hangman.guesses = hangman.guesses + 1;
-                        hangman.guessList.add(hangman.guess);
-                    }
-                    // if guesses > 5, break loop and say game over
-                    if(hangman.guesses > 4) {
-                        mainPrint2.setText("\nGAME OVER!! Try again!" + "The word was " + hangman.mainWord);
-
-                        Toast.makeText(getActivity(), "End of Program", Toast.LENGTH_SHORT).show();
-                        //break;
-                    }
-                    mainPrint.setText(hangman.mainPrinting(hangman.guesses, hangman.guessList, hangman.mainWord, hangman.charsGuessed));
-
                 }
-
 
 
                 //end code

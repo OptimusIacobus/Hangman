@@ -148,20 +148,20 @@ public class mainValues {
 
     //printing the full hangman
     public static String printFullHangman() {
-        return "     ------------------\n     |         |\n     |         |\n     |         O\n     |        -|-\n     |         |\n     |        ( )\n     |\n     |";
+        return "     ------------------\n     |         |\n     |         |\n     |        O\n     |        -|-\n     |         |\n     |        ( )\n     |\n     |";
     }
     public static String printHangman1() {
-       return "     ------------------\n     |         |\n     |         |\n     |         O\n     |        -|-\n     |         |\n     |        (\n     |\n     |";
+       return "     ------------------\n     |         |\n     |         |\n     |        O\n     |        -|-\n     |         |\n     |        (\n     |\n     |";
     }
     public static String printHangman2() {
-        return "     ------------------\n     |         |\n     |         |\n     |         O\n     |        -|-\n     |         |\n     |         \n     |\n     |";
+        return "     ------------------\n     |         |\n     |         |\n     |        O\n     |        -|-\n     |         |\n     |         \n     |\n     |";
     }
     public static String printHangman3() {
-        return "     ------------------\n     |         |\n     |         |\n     |         O\n     |         |-\n     |         |\n     |\n     |\n     |                 ";
+        return "     ------------------\n     |         |\n     |         |\n     |        O\n     |         |-\n     |         |\n     |\n     |\n     |                 ";
 
     }
     public static String printHangman4() {
-        return "     ------------------\n     |         |\n     |         |\n     |         O\n     |         |\n     |         |\n     |\n     |\n     |";
+        return "     ------------------\n     |         |\n     |         |\n     |        O\n     |         |\n     |         |\n     |\n     |\n     |";
     }
 
 
